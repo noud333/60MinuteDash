@@ -94,6 +94,9 @@ class board():
                 while empty_slots < abs(movement):
                     x_pos += step
 
+                    if x_pos < 0:
+                        return "Invalid Move"
+
                     if self._board[y_pos][x_pos] == movable_car:
                         pass
                     elif self._board[y_pos][x_pos] == 0:
@@ -103,6 +106,9 @@ class board():
             else:
                 while empty_slots < abs(movement):
                     y_pos += step
+
+                    if y_pos < 0:
+                        return "Invalid Move"
                 
                     if self._board[y_pos][x_pos] == movable_car:
                         pass
@@ -175,7 +181,7 @@ class board():
 
         header = ["car", "move"]
 
-        with open("output.txt", "w") as file:
+        with open("output.csv", "w") as file:
             csv_writer = csv.writer(file)
             csv_writer.writerow(header)
             csv_writer.writerows(self._moves)
@@ -195,7 +201,7 @@ class board():
                 break
         
 
-test = board(6, "Rushhour6x6_1.csv")
+test = board(6, "Rushhour6x6_3.csv")
 test.print_board()
 
 while True:
@@ -207,6 +213,6 @@ while True:
     test.random_move()
 
     if test.victory():
-        print("Congrats, counter:", counter)
+        print("Congrats")
         test.save_output()
         break
