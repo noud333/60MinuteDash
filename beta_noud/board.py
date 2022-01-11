@@ -1,5 +1,6 @@
 from car import Car
 import csv
+from random import random
 
 class board():
     '''
@@ -74,10 +75,10 @@ class board():
         ''' this function is used to move a car it checks '''
         
         # check if a valid car has been inputted
-        if car.upper() in self._car_number:
-            movable_car = self._car_number[car.upper()]
-        elif car in self._cars:
+        if car in self._cars.keys():
             movable_car = car
+        elif car.upper() in self._car_number:
+            movable_car = self._car_number[car.upper()]
         else:    
             return "Car not found"
 
@@ -160,17 +161,52 @@ class board():
             # give it its dict value
             # ints are used instead of the letters to make randomisation easier
             self._board[y][x] = car
-        
-        
 
+    def victory(self):
+        '''Check if red car is at end point'''
+
+        red_car = self._car_number["X"]
+
+        if self._cars[red_car]._xpos == len(self._board) -2:
+            return True
+    
+    def save_output(self):
+        '''this function saves the made moves into a csv file'''
+
+        header = ["car", "move"]
+
+        with open("output.txt", "w") as file:
+            csv_writer = csv.writer(file)
+            csv_writer.writerow(header)
+            csv_writer.writerows(self._moves)
+    
+    def random_move(self):      
+        
+        if random() > 0.5:
+            step = 1
+        else:
+            step = -1
+        
+        while True:
+            number = int(random() * (len(self._car_number )) + 0.5)
+
+            if number in self._cars.keys():
+                self.move_car(number, step)
+                break
+        
 
 test = board(6, "Rushhour6x6_1.csv")
 test.print_board()
 
 while True:
-    car_to_move = input("Which car do you want to move?")
-    movement = int(input("How far do you want to move?"))
-    move = input("Next move: ")
+    
+    #move = input("Next move: ").split()
 
-    print(test.move_car(car_to_move, movement))
-    test.print_board()
+    #print(test.move_car(move[0], int(move[1])))
+    #test.print_board()
+    test.random_move()
+
+    if test.victory():
+        print("Congrats, counter:", counter)
+        test.save_output()
+        break
