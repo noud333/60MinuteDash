@@ -2,6 +2,7 @@
 Contains the Board class for a Rush Hour game
 """
 
+from typing import get_origin
 from car import Car
 import csv
 
@@ -67,28 +68,37 @@ class Board():
         # get the car with its location
         car = self.cars[car_name]
         row, col = car.get_location()
-
-        # the carlength should only be added if moving down or right
-        if steps < 0:
-            carlength = 1
-        else:
-            carlength = car.length
+        going_bottomright = steps >= 0
 
         # check if the move is valid
         if car.is_horizontal:
              # check if the car stays inside the grid
             if col + steps < 1 or col + steps + car.length - 1 > self.n:
                 return False
-            for i in range(steps):
-                if self.grid[row][col + carlength + i] != "0":
-                    return False
+
+            # check the path that the car will follow
+            if not going_bottomright:
+                for i in range(0, steps, -1):
+                    if self.grid[row][col + i - 1] != "0":
+                        return False
+            else:
+                for i in range(0, steps, 1):
+                    if self.grid[row][col + i + car.length] != "0":
+                        return False
         else:
             # check if the car stays inside the grid
             if row + steps < 1 or row + steps + car.length - 1 > self.n:
                 return False
-            for i in range(steps):
-                if self.grid[row + carlength + i][col] != "0":
-                    return False
+
+            # check the path that the car will follow
+            if not going_bottomright:
+                for i in range(0, steps, -1):
+                    if self.grid[row + i - 1][col] != "0":
+                        return False
+            else:
+                for i in range(0, steps, 1):
+                    if self.grid[row + i + car.length][col] != "0":
+                        return False
 
         # move the car and update the grid
         car.move(steps)
