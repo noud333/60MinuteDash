@@ -2,9 +2,9 @@
 Contains the Board class for a Rush Hour game
 """
 
-from typing import get_origin
 from car import Car
 import csv
+from matplotlib import pyplot as plt
 
 class Board():
     """ An nxn Board for a Rush Hour game """
@@ -15,12 +15,12 @@ class Board():
         self.cars = {}
 
     def empty_grid(self):
-        """ Creates an empty nxn grid, so filled with 0's """
+        """ Creates an empty nxn grid, so filled with _'s """
         grid = {}
         for row_num in range(self.n):
             new_row = {}
             for col_num in range(self.n):
-                new_row[col_num + 1] = "0"
+                new_row[col_num + 1] = "_"
             grid[row_num + 1] = new_row
         return grid
     
@@ -38,9 +38,9 @@ class Board():
                 self.cars[new_car.get_name()] = new_car
 
             # update the grid
-            self.update_grid()
+            self.hard_update_grid()
     
-    def update_grid(self):
+    def hard_update_grid(self):
         """ Updates the grid by replacing all cars """
         self.grid = self.empty_grid()
         for car in self.cars.values():
@@ -67,10 +67,20 @@ class Board():
         
         # get the car with its location
         car = self.cars[car_name]
+
+        if self.move_is_valid(car, steps):
+            # move the car and update the grid
+            self.remove_from_grid(car)
+            car.move(steps)
+            self.place_at_grid(car)
+            return True
+        return False
+    
+    def move_is_valid(self, car, steps):
+        """ Check if a move is valid """
         row, col = car.get_location()
         going_bottomright = steps >= 0
 
-        # check if the move is valid
         if car.is_horizontal:
              # check if the car stays inside the grid
             if col + steps < 1 or col + steps + car.length - 1 > self.n:
@@ -79,11 +89,11 @@ class Board():
             # check the path that the car will follow
             if not going_bottomright:
                 for i in range(0, steps, -1):
-                    if self.grid[row][col + i - 1] != "0":
+                    if self.grid[row][col + i - 1] != "_":
                         return False
             else:
                 for i in range(0, steps, 1):
-                    if self.grid[row][col + i + car.length] != "0":
+                    if self.grid[row][col + i + car.length] != "_":
                         return False
         else:
             # check if the car stays inside the grid
@@ -93,18 +103,56 @@ class Board():
             # check the path that the car will follow
             if not going_bottomright:
                 for i in range(0, steps, -1):
-                    if self.grid[row + i - 1][col] != "0":
+                    if self.grid[row + i - 1][col] != "_":
                         return False
             else:
                 for i in range(0, steps, 1):
-                    if self.grid[row + i + car.length][col] != "0":
+                    if self.grid[row + i + car.length][col] != "_":
                         return False
-
-        # move the car and update the grid
-        car.move(steps)
-        self.update_grid()
         return True
+
+    def remove_from_grid(self, car):
+        """ Removes a car from the grid """
+        length = car.length
+        row, col = car.get_location()
+        for step in range(length):
+            if car.is_horizontal:
+                self.grid[row][col + step] = "_"
+            else:
+                self.grid[row + step][col] = "_"
+
+    def place_at_grid(self, car):
+        """ Places a car at the grid """
+        length = car.length
+        row, col = car.get_location()
+        name = car.get_name()
+        for step in range(length):
+            if car.is_horizontal:
+                self.grid[row][col + step] = name
+            else:
+                self.grid[row + step][col] = name
 
     def is_finished(self):
         """ The game is finished if car X is next to the exit """
         return self.cars["X"].col + 1 == self.n
+
+    def matplotlib_state(self, file_name):
+        """ Uses matplotlib to show the current state """
+        plt.axes()
+        bg = plt.Rectangle((0, -1 * self.n), self.n, self.n, fc="grey")
+        plt.gca().add_patch(bg)
+        # add cars
+        for car in self.cars.values():
+            if car.is_horizontal:
+                new = plt.Rectangle((car.col - 1, -1 * car.row), car.length, 1, fc="blue", ec="black")
+                plt.gca().add_patch(new)
+            else:
+                new = plt.Rectangle((car.col - 1, -1 * car.row - car.length + 1), 1, car.length, fc="blue", ec="black")
+                plt.gca().add_patch(new)
+        # put the rec car over all
+        car = self.cars["X"]
+        red = plt.Rectangle((car.col - 1, -1 * car.row), car.length, 1, fc="red", ec="black")
+        plt.gca().add_patch(red)
+
+        plt.axis("scaled")
+        plt.savefig(file_name)
