@@ -6,15 +6,19 @@ from game import Game
 from visual import App
 import time
 
+
 start = time.time()
 # test code
-game = Game(12, "Rushhour12x12_7.csv")
+game = Game(6, "Rushhour6x6_1.csv")
 random_sol = game.solve_random()
 game.save_output(random_sol, "Random_12x12")
 end = time.time()
 print(end - start)
 
-game.board.matplotlib_state("files/output/test.png")
-
-app = App(12, game.board.cars)
+# prepare to use the visual app
+states = game.output_to_states(random_sol)
+app = App(6)
+# add all states
+for state in states:
+    app.add_state(state)
 app.run()

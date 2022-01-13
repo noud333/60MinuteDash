@@ -13,6 +13,8 @@ class Game():
     def __init__(self, n, board_file):
         self.board = Board(n)
         self.board.fill_board(board_file)
+        self.n = n
+        self.board_file = board_file
     
     def solve_random(self):
         """ Will move a random car in a random direction until the board is solved """
@@ -35,6 +37,24 @@ class Game():
                 steplist.append([car_name, direction])
                     
         return steplist
+
+    def output_to_states(self, output):
+        """ Takes an output and returns a list of states that can be visualized """
+
+        carlist = []
+        steps = len(output) + 1
+
+        # add the car state after every move; all are assumed valid
+        for step_num in range(steps):
+            # do all previous moves and the current one
+            board = Board(self.n)
+            board.fill_board(self.board_file)
+            for i in range(step_num):
+                board.move(output[i][0], output[i][1])
+            # then store the car state
+            carlist.append(board.cars)
+        
+        return carlist
 
     def save_output(self, steps, output_file_name):
         """ Save the steps in an output file """
