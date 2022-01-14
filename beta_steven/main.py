@@ -3,6 +3,7 @@ import csv
 import pandas
 from functions import solve, load, save
 import time
+from graph import graph
 
 
 if __name__ == "__main__":
@@ -16,6 +17,7 @@ if __name__ == "__main__":
     solution = solve(board)
     print("Solved!!!")
     print(board.show())
+    graph(board)
 
     # save the solution as a csv file with the name output
     save(solution, filename="output.csv")
