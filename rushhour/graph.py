@@ -31,7 +31,7 @@ class App():
         self.n = n
         self.WIDTH, self.HEIGHT = 50 * self.n, 50* self.n
         self.step_num = 0
-        self.last_step_num = len(autos)
+        self.last_step_num = len(autos) - 1
         self.autos = autos
 
         # start the window
