@@ -6,9 +6,8 @@ import time
 from graph import graph
 
 
-
 if __name__ == "__main__":
-
+    
     start_time = time.time()
 
     # load the board via the load function
