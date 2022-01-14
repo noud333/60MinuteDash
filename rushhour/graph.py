@@ -19,6 +19,7 @@ def graph(board):
         rect.set_edgecolor("black")
         rect.set_linewidth(2)
         plt.gca().add_patch(rect)
+    plt.savefig("test.png")
 
 
 
@@ -103,8 +104,8 @@ class App():
                     self.WINDOW.blit(self.car_assets_3x1[num], location)
         
         # then place the red car
-        x = self.state["X"]["col"] * 50
-        y = self.state["X"]["row"] * 50
+        x = state["X"]["col"] * 50
+        y = state["X"]["row"] * 50
         self.WINDOW.blit(self.CAR_RED, (x, y))
 
         # show which step is displayed
@@ -138,4 +139,3 @@ class App():
         
         # stop the app
         pygame.quit()
-        plt.savefig("test.png")
