@@ -13,8 +13,10 @@ class Game():
     def __init__(self, n, board_file):
         self.board = Board(n)
         self.board.fill_board(board_file)
+        self.n = n
+        self.board_file = board_file
     
-    def write_random(self, outputname):
+    def solve_random(self):
         """ Will move a random car in a random direction until the board is solved """
 
         name_list = []
@@ -22,27 +24,49 @@ class Game():
             name_list.append(car)
         total = len(name_list)
 
-        # prepare to save the valid moves
-        with open(f"files/output/{outputname}.csv", "w", newline="") as file:
+        steplist = []
+
+        # make a random move until solved
+        while not self.board.is_finished():
+            r = random.randrange(0, total)
+            car_name = name_list[r]
+            direction = random.choice([-1, 1])
+
+            # if the move is valid, save it
+            if self.board.move(car_name, direction):
+                steplist.append([car_name, direction])
+                    
+        return steplist
+
+    def output_to_states(self, output):
+        """ Takes an output and returns a list of states that can be visualized """
+
+        carlist = []
+        steps = len(output) + 1
+
+        # add the car state after every move; all are assumed valid
+        for step_num in range(steps):
+            # do all previous moves and the current one
+            board = Board(self.n)
+            board.fill_board(self.board_file)
+            for i in range(step_num):
+                board.move(output[i][0], output[i][1])
+            # then store the car state
+            carlist.append(board.cars)
+        
+        return carlist
+
+    def save_output(self, steps, output_file_name):
+        """ Save the steps in an output file """
+
+        with open(f"files/output/{output_file_name}.csv", "w", newline="") as file:
             writer = csv.writer(file)
 
             # first the header
             writer.writerow(["car", "move"])
+            writer.writerows(steps)
 
-            # make a random move until solved
-            while not self.board.is_finished():
-                r = random.randrange(0, total)
-                car_name = name_list[r]
-                direction = random.choice([-1, 1])
-
-                # if the move is valid, write it to a file
-                if self.board.move(car_name, direction):
-                    writer.writerow([car_name, direction])
-                    
-            print("Solved!")
-            self.board.show_board()
-    
-    def run(self):
+    def play_game(self):
         """ The main game loop """
         
         # continue until finished

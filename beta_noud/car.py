@@ -8,7 +8,13 @@ class Car():
         self._direction = direction
         self._xpos = int(x_pos)
         self._ypos = int(y_pos)
-    
+
     def update_pos(self, x_pos, y_pos):
         self._xpos = int(x_pos)
         self._ypos = int(y_pos)
+
+    def get_pos(self):
+        return self._xpos, self._ypos
+
+    def get_val(self):
+        return self._name, self._length, self._direction
