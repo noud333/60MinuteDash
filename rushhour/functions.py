@@ -5,7 +5,6 @@ import math
 from classes import Car, Board
 from graph import App
 
-
 def load(filename, dimension):
 
     # create a board with the given dimension

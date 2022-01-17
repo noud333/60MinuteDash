@@ -2,6 +2,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 from matplotlib.patches import Rectangle
 import pygame
+import os
 
 def graph(board):
     plt.plot()
