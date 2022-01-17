@@ -1,5 +1,34 @@
 import pygame
+import csv
+import copy
 
+def visualize_csv(output, original_board):
+    """ perfroms moves in output on a board """
+
+    # load in the board
+    autos = []
+    board = copy.deepcopy(original_board)
+
+    # add the initial state to the list 
+    state = {}
+    for car in board.cars.values():
+        state[car.name] = {"row" : car.row, "col" : car.col, "length" : car.length, "is_horizontal" : car.is_horizontal}
+
+    with open(f"data/output/{output}") as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        
+        for step in csv_reader:
+            state = {}
+            board.move(board.cars[step["car"]], int(step["move"]))
+
+            for car in board.cars.values():
+                state[car.name] = {"row" : car.row, "col" : car.col, "length" : car.length, "is_horizontal" : car.is_horizontal}
+            
+            autos.append(state)
+            
+    # start the app
+    app = App(board.dimension, autos)
+    app.run()
 
 
 class App():

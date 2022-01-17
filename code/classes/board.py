@@ -1,14 +1,27 @@
 import numpy as np
+import math
+import csv
+from .car import Car
 
 class Board:
     '''
     this class represents the playing board 
     '''
-    def __init__(self, dimension):
+    def __init__(self, filename, dimension):
         # create an empty array
         self.dimension = dimension
         self.grid = np.array([['_'] * dimension] * dimension, dtype='U2')
         self.cars = {}
+        self.load(filename)
+
+    def load(self, filename):
+        """ open the csv file and put the cars on the board """
+
+        with open(f"data/gameboards/{filename}") as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+            for x in csv_reader:
+                car = Car(x["car"], x["orientation"], int(x["col"]) - 1, int(x["row"]) - 1, int(x["length"]))
+                self.add(car)
 
     def show(self):
         """ show the board for visual aid """
@@ -76,3 +89,7 @@ class Board:
                     except IndexError:
                         return False
         return True
+
+    def finished(self):
+        """ check whether the board is solved """
+        return list(self.grid[math.ceil(self.dimension/2 - 1), self.dimension - 1]) == ['X']

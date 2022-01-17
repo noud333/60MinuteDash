@@ -1,4 +1,7 @@
-from code.functions import solve, load, save, visualize_csv
+from code.helpers import save
+from code.algorithms.randomize import random_solve
+from code.classes.board import Board
+from code.visualisation.app import visualize_csv
 import time
 
 
@@ -7,12 +10,12 @@ if __name__ == "__main__":
     start_time = time.time()
 
     # load the board via the load function
-    board = load(filename="Rushhour6x6_1.csv", dimension=6)
+    board = Board(filename="Rushhour6x6_1.csv", dimension=6)
 
     # solve the board
-    solution = solve(board)
+    solution, random_solved_board = random_solve(board)
     print("Solved!!!")
-    print(board.show())
+    print(random_solved_board.show())
 
     # save the solution as a csv file with the name output
     save(solution, filename="output.csv")
@@ -23,4 +26,4 @@ if __name__ == "__main__":
     print(f"--- {len(solution[0])} steps ---")
     print(f"--- {len(solution[0])/total_time} steps per second ---")
 
-    visualize_csv(output="output.csv", boardfile="Rushhour6x6_1.csv", dimension= 6)
+    visualize_csv(output="output.csv", original_board=board)
