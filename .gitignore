@@ -1,0 +1,4 @@
+*.pyc
+.data/output/
+test.png
+*.prof
