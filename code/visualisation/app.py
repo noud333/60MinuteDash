@@ -50,20 +50,20 @@ class App():
         self.FPS = 5
 
         # load all the assets
-        self.TILE = pygame.image.load("rush_hour_assets/tile.png").convert()
+        self.TILE = pygame.image.load("code/visualisation/rush_hour_assets/tile.png").convert()
         self.TILE = pygame.transform.scale(self.TILE, (50, 50))
-        self.CAR_RED = pygame.image.load("rush_hour_assets/red_car.png").convert()
+        self.CAR_RED = pygame.image.load("code/visualisation/rush_hour_assets/red_car.png").convert()
         self.CAR_RED = pygame.transform.scale(self.CAR_RED, (100, 50))
 
         # load the different cars
         self.car_assets_2x1 = {}
         for i in range(4):
-            new = pygame.image.load(f"rush_hour_assets/car_2x1_{i}.png").convert()
+            new = pygame.image.load(f"code/visualisation/rush_hour_assets/car_2x1_{i}.png").convert()
             self.car_assets_2x1[i] = pygame.transform.scale(new, (100, 50))
 
         self.car_assets_3x1 = {}
         for i in range(3):
-            new = pygame.image.load(f"rush_hour_assets/car_3x1_{i}.png").convert()
+            new = pygame.image.load(f"code/visualisation/rush_hour_assets/car_3x1_{i}.png").convert()
             self.car_assets_3x1[i] = pygame.transform.scale(new, (150, 50))
 
         # make the background
