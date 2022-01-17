@@ -1,15 +1,17 @@
-from functions import solve, load, save, visualize_csv
+from classes import Car, Board
+import csv
+import pandas
+from functions import solve, load, save
 import time
 from graph import graph
 
 
-
 if __name__ == "__main__":
-    
+
     start_time = time.time()
-    
+
     # load the board via the load function
-    board = load(filename="Rushhour6x6_1.csv", dimension=6)
+    board = load(filename="Rushhour12x12_7.csv", dimension=12)
 
     # solve the board
     solution = solve(board)
@@ -26,4 +28,16 @@ if __name__ == "__main__":
     print(f"--- {len(solution[0])} steps ---")
     print(f"--- {len(solution[0])/total_time} steps per second ---")
 
-    visualize_csv(output="output.csv", boardfile="Rushhour6x6_1.csv", dimension= 6)
+
+
+
+
+
+
+
+
+
+
+
+
+
