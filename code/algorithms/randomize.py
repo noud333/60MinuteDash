@@ -47,5 +47,6 @@ class Simulate_random(Random_solve):
                 best_solution = new_solution
                 smallest_solution = len(new_solution[0])
         
+            print("Solution #", x, " Length: ", len(new_solution[0]))
 
         return best_solution, best_board
