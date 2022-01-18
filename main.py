@@ -5,7 +5,7 @@ from code.visualisation.app import visualize_csv
 import matplotlib.pyplot as plt
 import csv
 import statistics
-
+import math
 
 if __name__ == "__main__":
 
@@ -44,7 +44,8 @@ if __name__ == "__main__":
     
     # calculate mean
     steps.sort()
-    steps = steps[25:975]
+    #steps = steps[25:975]
+    total_steps = len(steps)
 
     avg = sum(steps) / len(steps)
     print("Average: ", avg)
@@ -53,6 +54,13 @@ if __name__ == "__main__":
     res = statistics.variance(steps)
     print("Variance: ", res)
     print("Variance: ", var_res)
+
+    skew = (math.sqrt(total_steps) * sum((xi - avg) ** 3 for xi in steps)) / (sum((xi - avg) ** 2 for xi in steps)) ** (3 / 2)
+    kurt = (total_steps * sum((xi - avg) ** 4 for xi in steps)) / (sum((xi - avg) ** 2 for xi in steps)) ** 2 - 3
+
+    print("Skewness: ", skew)
+    print("Kurtosis: ", kurt)
+
 
     plt.hist(steps, bins=100)
     plt.savefig("test.png")

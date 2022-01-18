@@ -90,6 +90,28 @@ class Board:
                         return False
         return True
 
+    def get_neighbor(self, car, going_bottom_right):
+        """ Returns the car in the given direction """ 
+        try:
+            if going_bottom_right:
+                if car.is_horizontal:
+                    neighbor = self.grid[car.row, car.col + car.length]
+                else:  
+                    neighbor = self.grid[car.row + car.length, car.col]
+                
+            else:
+                if car.is_horizontal and car.col != 0:
+                    neighbor = self.grid[car.row, car.col - 1]
+                elif not car.is_horizontal and car.row != 0:
+                    neighbor = self.grid[car.row - 1, car.col]
+                else:
+                    return None
+            neighbor = self.cars[neighbor]
+        except IndexError:
+            neighbor = None
+        
+        return neighbor
+
     def finished(self):
         """ check whether the board is solved """
         return list(self.grid[math.ceil(self.dimension/2 - 1), self.dimension - 1]) == ['X']
