@@ -1,7 +1,7 @@
 import copy
 
 from code.classes.car import Car
-#import random
+import random
 
 
     
@@ -17,23 +17,37 @@ class Greedy():
         red_car = self.board.cars["X"]
         
         while not self.board.finished():
-            # move red car towards the exit
-            self.recursive(red_car)
+
+            if random.random() > 0.05:
+                while True:
+                    # select a random_car to move
+                    random_car = random.choice(list(self.board.cars.keys()))
+                    random_direction = random.choice([-1,1])
+
+                    if self.board.check_move(self.board.cars[random_car], random_direction):
+                        self.board.move(self.board.cars[random_car], random_direction)
+                        self.solution[0].append(random_car)
+                        self.solution[1].append(random_direction)
+                        break
+
+            else:
+                # move red car towards the exit
+                self.recursive(red_car)
         
         return self.solution, self.board
 
-    def recursive(self, car, previous_car=None):
+    def recursive(self, car, previous_car=None, iteration = 0):
 
         # print the board just for checking (remove later)
-        print(self.board.show())
+        # print(self.board.show())
         
 
-        if not car:
+        if not car or iteration >= 2:
             return
         
-        print("car :", car.name)
-        if previous_car:
-            print("previous_car = : ", previous_car.name)
+        # print("car :", car.name)
+        # if previous_car:
+        #     print("previous_car = : ", previous_car.name)
 
         forward = self.board.check_move(car, 1)
         backward = self.board.check_move(car, -1)
@@ -42,7 +56,7 @@ class Greedy():
                 self.board.move(car, 1)
                 self.solution[0].append(car.name)
                 self.solution[1].append(1)
-            self.recursive(self.board.get_neighbor(car, True), car)
+            self.recursive(self.board.get_neighbor(car, True), car, iteration + 1)
 
         elif backward:
             while self.board.check_move(car, -1):
@@ -51,18 +65,18 @@ class Greedy():
                 self.solution[1].append(-1)
             
             if car is not self.board.cars["X"]:
-                self.recursive(self.board.get_neighbor(car, False), car)
+                self.recursive(self.board.get_neighbor(car, False), car, iteration + 1)
             else:
-                self.recursive(previous_car, car)
+                self.recursive(previous_car, car, iteration + 1)
             
         else:
             neighbor = self.board.get_neighbor(car, True)
             if neighbor is previous_car:
-                self.recursive(self.board.get_neighbor(car, False), car)
+                self.recursive(self.board.get_neighbor(car, False), car, iteration + 1)
             elif neighbor is None:
-                self.recursive(self.board.get_neighbor(car, False), car)
+                self.recursive(self.board.get_neighbor(car, False), car, iteration + 1)
             else:
-                self.recursive(self.board.get_neighbor(car, True), car)
+                self.recursive(self.board.get_neighbor(car, True), car, iteration + 1)
             # if neighbor != previous_car:
             #     self.recursive(self.board.get_neighbor(car,True), previous_car=car)
             # elif neighbor == previous_car:

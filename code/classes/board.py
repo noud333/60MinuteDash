@@ -113,5 +113,17 @@ class Board:
         return neighbor
 
     def finished(self):
-        """ check whether the board is solved """
+        """ Check whether the board is solved """
         return list(self.grid[math.ceil(self.dimension/2 - 1), self.dimension - 1]) == ['X']
+
+    def get_moves(self):
+        """ Gives all possible moves """
+        move_list = [[], []]
+        for car in self.cars.values():
+            if self.check_move(car, 1):
+                move_list[0].append(car)
+                move_list[1].append(1)
+            if self.check_move(car, -1):
+                move_list[0].append(car)
+                move_list[1].append(-1)
+        return move_list
