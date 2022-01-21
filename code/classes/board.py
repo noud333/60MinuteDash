@@ -12,6 +12,8 @@ class Board:
         self.dimension = dimension
         self.grid = np.array([['_'] * dimension] * dimension, dtype='U2')
         self.cars = {}
+        self.solution = [[],[]]
+        self.score = 0
         self.load(filename)
 
     def load(self, filename):
@@ -118,12 +120,12 @@ class Board:
 
     def get_moves(self):
         """ Gives all possible moves """
-        move_list = [[], []]
+        move_list = [[],[]]
         for car in self.cars.values():
             if self.check_move(car, 1):
-                move_list[0].append(car)
+                move_list[0].append(car.name)
                 move_list[1].append(1)
             if self.check_move(car, -1):
-                move_list[0].append(car)
+                move_list[0].append(car.name)
                 move_list[1].append(-1)
         return move_list

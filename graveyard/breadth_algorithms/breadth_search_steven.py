@@ -6,7 +6,7 @@ class Breadth_search():
     def __init__(self, board):
         self.board = copy.deepcopy(board)
         self.solution = [[],[]]
- 
+
     def run(self):
 
         visited_boards = set()
@@ -18,7 +18,7 @@ class Breadth_search():
         while True:
 
             steps +=1
-            print(f"Currently looking at step: {steps}")
+            #print(f"Currently looking at step: {steps}")
 
             if len(active_boards) > 0:
                 active_boards.sort(key=lambda x: x.score, reverse=False)

@@ -22,7 +22,7 @@ class Breadth():
 
         for i in range(expected_steps):
             # progress report
-            print("Step:", i + 1, "Boards:", len(self.list_of_boards))
+            #print("Step:", i + 1, "Boards:", len(self.list_of_boards))
 
             # every valid new board is saved here
             new_boards = []
@@ -41,6 +41,8 @@ class Breadth():
 
                     # do the move
                     temp_board.move(temp_board.cars[moves[0][move_index].name], moves[1][move_index])
+                    temp_board.solution[0].append(moves[0][move_index].name)
+                    temp_board.solution[1].append(moves[1][move_index])
 
                     # check for solution
                     if temp_board.finished():
@@ -61,6 +63,8 @@ class Breadth():
                         while True:
                             # move red car to finished state
                             temp_board.move(red_car, 1)
+                            temp_board.solution[0].append(moves[0][move_index].name)
+                            temp_board.solution[1].append(1)
 
                             if temp_board.finished():
                                 return temp_board.solution, temp_board.show()
