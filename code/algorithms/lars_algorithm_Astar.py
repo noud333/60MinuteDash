@@ -55,10 +55,11 @@ class Algorithm():
         for node in self.nodes:
             if new_node.score < node.score:
                 self.nodes.insert(index, new_node)
-                return
+                break
             index += 1
-        # if something goes wrong
-        self.nodes.append(new_node)
+
+        if not new_node in self.nodes:
+            self.nodes.append(new_node)
 
         if len(self.nodes) > 500:
             # too big remove last one
