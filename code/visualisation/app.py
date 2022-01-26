@@ -37,7 +37,7 @@ class App():
     def __init__(self, n, autos):
         """ Used to set-up the pygame app """
         self.n = n
-        self.WIDTH, self.HEIGHT = 50 * self.n, 50* self.n
+        self.WIDTH, self.HEIGHT = 100 * self.n, 100 * self.n
         self.step_num = 0
         self.last_step_num = len(autos) - 1
         self.autos = autos
@@ -51,30 +51,30 @@ class App():
 
         # load all the assets
         self.TILE = pygame.image.load("code/visualisation/rush_hour_assets/tile.png").convert()
-        self.TILE = pygame.transform.scale(self.TILE, (50, 50))
+        self.TILE = pygame.transform.scale(self.TILE, (100, 100))
         self.CAR_RED = pygame.image.load("code/visualisation/rush_hour_assets/red_car.png").convert()
-        self.CAR_RED = pygame.transform.scale(self.CAR_RED, (100, 50))
+        self.CAR_RED = pygame.transform.scale(self.CAR_RED, (200, 100))
 
         # load the different cars
         self.car_assets_2x1 = {}
         for i in range(4):
             new = pygame.image.load(f"code/visualisation/rush_hour_assets/car_2x1_{i}.png").convert()
-            self.car_assets_2x1[i] = pygame.transform.scale(new, (100, 50))
+            self.car_assets_2x1[i] = pygame.transform.scale(new, (200, 100))
 
         self.car_assets_3x1 = {}
         for i in range(3):
             new = pygame.image.load(f"code/visualisation/rush_hour_assets/car_3x1_{i}.png").convert()
-            self.car_assets_3x1[i] = pygame.transform.scale(new, (150, 50))
+            self.car_assets_3x1[i] = pygame.transform.scale(new, (300, 100))
 
         # make the background
         self.BG = pygame.Surface((self.WIDTH, self.HEIGHT))
         for row in range(self.n):
             for col in range(self.n):
-                location = row * 50, col * 50
+                location = row * 100, col * 100
                 self.BG.blit(self.TILE, location)
         
         # load a font to display text
-        self.font = pygame.font.Font(pygame.font.get_default_font(), 48)
+        self.font = pygame.font.Font(pygame.font.get_default_font(), 96)
 
         self.is_running = True
         self.clock = pygame.time.Clock()
@@ -92,7 +92,7 @@ class App():
             if state[car_name]["length"] == 2 and car_name != "X":
                 # get a number for the car to select an image
                 num = ord(car_name[-1]) % len(self.car_assets_2x1)
-                location = (state[car_name]["col"] * 50, state[car_name]["row"] * 50)
+                location = (state[car_name]["col"] * 100, state[car_name]["row"] * 100)
 
                 # rotate the image if not horizontal
                 if not state[car_name]["is_horizontal"]:
@@ -103,7 +103,7 @@ class App():
             if state[car_name]["length"] == 3:
                 # get a number for the car to select an image
                 num = ord(car_name[-1]) % len(self.car_assets_3x1)
-                location = (state[car_name]["col"] * 50, state[car_name]["row"] * 50)
+                location = (state[car_name]["col"] * 100, state[car_name]["row"] * 100)
                 
                 # rotate the image if not horizontal
                 if not state[car_name]["is_horizontal"]:
@@ -112,8 +112,8 @@ class App():
                     self.WINDOW.blit(self.car_assets_3x1[num], location)
         
         # then place the red car
-        x = state["X"]["col"] * 50
-        y = state["X"]["row"] * 50
+        x = state["X"]["col"] * 100
+        y = state["X"]["row"] * 100
         self.WINDOW.blit(self.CAR_RED, (x, y))
 
         # show which step is displayed
