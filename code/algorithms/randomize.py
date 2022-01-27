@@ -5,7 +5,7 @@ import random
 import copy
 
 
-    
+
 class Random_solve():
     """ Solves the board with random moves """
 
