@@ -20,14 +20,26 @@ def histogram(csv_file_name, title=""):
         for line in reader:
             data.append(int(line["solution lengths"]))
 
+    mean = round(sum(data) / len(data), 2)
+    std = round((sum((x - mean) ** 2 for x in data) / len(data)) ** 0.5, 2)
+    lowest = min(data)
+    highest = max(data)
+    specs = f"Average: {mean}\nStandarddeviation: {std}\nLowest: {lowest}\nHighest: {highest}"
+    
     # make a matplotlib histogram
-    plt.hist(data, bins=10)
+    plt.hist(data, bins=25, rwidth=0.9)
     plt.xlabel("Steps needed until solved")
     plt.ylabel("Count")
-    plt.title(title)
+    x_values = list(range(0, max(data), 10))
+    plt.xticks(x_values, rotation=40)
+    plt.title(f"{title}, solved {len(data)} times with optimize random")
+    plt.grid(axis="y", alpha=0.75)
+
+    # add specs of graph
+    plt.text(x=highest-30, y=10, s=specs, horizontalalignment='center', fontstyle="italic")
+    plt.gcf().subplots_adjust(bottom=0.2)
     plt.savefig(f"data/output/{csv_file_name[:-4]}.png")
 
-    
 
 def graph(board):
     plt.plot()
@@ -48,4 +60,4 @@ def graph(board):
     plt.savefig("test.png")
 
 if __name__ == "__main__":
-    histogram("OptimizedRandom_Rushhour9x9_6.csv")
+    histogram("OptimizedRandom_Rushhour9x9_6.csv", "Puzzle 6")
