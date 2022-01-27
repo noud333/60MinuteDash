@@ -4,6 +4,7 @@ from code.algorithms.breadth_first import Breadth_search
 from code.algorithms.optimizer import Optimizer
 
 from code.visualisation.app import visualize_csv
+from code.visualisation.graph import to_csv, histogram
 from code.helpers import save 
 import time
 import argparse
@@ -43,11 +44,14 @@ def main(args):
             # _______OPTIMIZED RANDOM ALGORITHM___
             start_time = time.time()
             optimizer = Optimizer(board)
-            solution = optimizer.simulate(10)
+            solution, solution_lengths = optimizer.simulate(100)
             # print specs of solution
             print(f"---Solved Optimized Random in {len(solution[0])} steps---")
             if args.timed:
                 print(f"Total time = {time.time() - start_time}")
+            
+            if args.output:
+                to_csv(solution_lengths, args.board[0])
 
     # save the output if requested
     if args.output:

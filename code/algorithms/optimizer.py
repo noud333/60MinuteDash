@@ -19,18 +19,21 @@ class Optimizer():
         """
 
         sols = []
-        # simulates 10 random boards and optimizes the best one
+        sols_len = []
+
+        # generate a random board and optimizes it
         for i in range(n):
             board = self.original_board
             
-            # simulate 10 random boards
+            # simulate a random board
             random_solve = Simulate_random(board)
             solution = random_solve.simulate_n(10)[0]
 
-            # optimize the best one
+            # optimize the random board
             optimizer = Optimizer(board, solution)
             solution = optimizer.run()[0]
             sols.append(solution)
+            sols_len.append(len(solution[0]))
             print(f"---Finished cycle {i + 1}, found solution of length {len(solution[0])}---")
 
         # return the solution with minimal length
@@ -39,7 +42,7 @@ class Optimizer():
             if len(sol[0]) < minimal_solution:
                 solution = sol
                 minimal_solution = len(sol[0])
-        return solution
+        return solution, sols_len
 
 
     def run(self):
@@ -56,7 +59,7 @@ class Optimizer():
 
     def remove_empty_spots(self):
         """ Find all the steps where cars move back and forth and remove them from the solution """
-        
+
         self.board = copy.deepcopy(self.original_board)
         positions_to_remove = []
 
