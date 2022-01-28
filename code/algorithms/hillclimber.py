@@ -30,8 +30,8 @@ class Hillclimber():
             solution = random_solve.simulate_n(10)[0]
 
             # optimize the random board
-            optimizer = Optimizer(board, solution)
-            solution = optimizer.run()[0]
+            hillclimber = Hillclimber(board, solution)
+            solution = hillclimber.run()[0]
             sols.append(solution)
             sols_len.append(len(solution[0]))
             print(f"---Finished cycle {i + 1}, found solution of length {len(solution[0])}---")
