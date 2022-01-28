@@ -7,7 +7,7 @@ import csv
 def to_csv(solution_lengths, board_name):
     # save a list of solution lengths as a csv file
     df = pandas.DataFrame(data={"solution lengths": solution_lengths})
-    df.to_csv(f"data/output/OptimizedRandom_{board_name}", sep=',', index=False)
+    df.to_csv(f"data/output/Hillclimber_{board_name}", sep=',', index=False)
 
 
 def histogram(csv_file_name, title=""):
