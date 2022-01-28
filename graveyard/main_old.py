@@ -3,7 +3,7 @@ from code.algorithms.greedy import Greedy
 from code.classes.board import Board
 from code.algorithms.breadth_first import Breadth_search
 from code.algorithms.depth_first import Depth_search
-from code.algorithms.optimizer import Optimizer
+from code.algorithms.hillclimber import Optimizer
 
 from code.helpers import save 
 import time

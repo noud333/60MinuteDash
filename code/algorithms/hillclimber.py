@@ -1,7 +1,7 @@
 import copy
 from .randomize import Simulate_random
 
-class Optimizer():
+class Hillclimber():
     """
     This algorithm takes a random solution and optimizes it by removing redundant moves.
     It does so recursively until no improvements are possible.

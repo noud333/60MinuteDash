@@ -30,7 +30,7 @@ def histogram(csv_file_name, title=""):
     plt.hist(data, bins=25, rwidth=0.9)
     plt.xlabel("Steps needed until solved")
     plt.ylabel("Count")
-    x_values = list(range(0, max(data), 10))
+    x_values = list(range(0, max(data) + 10, 10))
     plt.xticks(x_values, rotation=40)
     plt.title(f"{title}, solved {len(data)} times with optimize random")
     plt.grid(axis="y", alpha=0.75)
@@ -39,6 +39,7 @@ def histogram(csv_file_name, title=""):
     plt.text(x=highest-30, y=10, s=specs, horizontalalignment='center', fontstyle="italic")
     plt.gcf().subplots_adjust(bottom=0.2)
     plt.savefig(f"data/output/{csv_file_name[:-4]}.png")
+    plt.close()
 
 
 def graph(board):
@@ -60,4 +61,10 @@ def graph(board):
     plt.savefig("test.png")
 
 if __name__ == "__main__":
+    histogram("OptimizedRandom_Rushhour6x6_1.csv", "Puzzle 1")
+    histogram("OptimizedRandom_Rushhour6x6_2.csv", "Puzzle 2")
+    histogram("OptimizedRandom_Rushhour6x6_3.csv", "Puzzle 3")
+    histogram("OptimizedRandom_Rushhour9x9_4.csv", "Puzzle 4")
+    histogram("OptimizedRandom_Rushhour9x9_5.csv", "Puzzle 5")
     histogram("OptimizedRandom_Rushhour9x9_6.csv", "Puzzle 6")
+    histogram("OptimizedRandom_Rushhour12x12_7.csv", "Puzzle 7")
