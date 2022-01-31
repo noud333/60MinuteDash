@@ -42,7 +42,7 @@ Available algorithms are:
 After having tried different values for the score threshold that is used to prune the boards, it appears that 2 is the optimal value. Using a larger or a lower value resulted in worse solutions. A bigger value resulted in the same number of steps, but it took more time. A lower value resulted in a worse solution or no solution at all.
 ### Hillclimber
 We have run the hillclimber algorithm 1000 times on all seven boards. This resulted in the following solutions with minimal moves:
-[TABLE]
+![Results](results/solutions.png)
 This experiment showed that hillclimber is able to produce solutions with a low amount of moves. After 1000 tries on each puzzle, we are quite confident that our solutions for boards 5, 6 and 7 are either the best or close to the best solution. Because we have used breadth-first on the first four boards, we are almost certain that our solutions for these boards are optimal.
 
 ## Structure
