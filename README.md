@@ -43,6 +43,7 @@ After having tried different values for the score threshold that is used to prun
 ### Hillclimber
 We have run the hillclimber algorithm 1000 times on all seven boards. This resulted in the following solutions with minimal moves:
 ![Results](results/solutions.png)
+
 This experiment showed that hillclimber is able to produce solutions with a low amount of moves. After 1000 tries on each puzzle, we are quite confident that our solutions for boards 5, 6 and 7 are either the best or close to the best solution. Because we have used breadth-first on the first four boards, we are almost certain that our solutions for these boards are optimal.
 
 ## Structure
