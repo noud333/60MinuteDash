@@ -30,14 +30,22 @@ To show the initial state of puzzle 7 run:
 Or to use an existing solution file:
 > python3 main.py -b Rushhour12x12_7 12 -s {example_solution_file.csv}
 
-### Algorithms
+## Algorithms
 There are three algorithms available that can be used to solve a rush hour game. They can be run by typing their name after a “-a”.
 Available algorithms are:
 * hillclimber, uses a solution from random and finds the local minimum amount of steps to complete this board. Does this 100 times and returns the best result.
 * random, solves a board with random steps 10 times and returns the best solution
 * breadth-first, solves a board with minimal steps but does not work on puzzles 5, 6 and 7
 
-### Structure
+## Experiment
+### Breadth-first
+After having tried different values for the score threshold that is used to prune the boards, it appears that 2 is the optimal value. Using a larger or a lower value resulted in worse solutions. A bigger value resulted in the same number of steps, but it took more time. A lower value resulted in a worse solution or no solution at all.
+### Hillclimber
+We have run the hillclimber algorithm 1000 times on all seven boards. This resulted in the following solutions with minimal moves:
+[TABLE]
+This experiment showed that hillclimber is able to produce solutions with a low amount of moves. After 1000 tries on each puzzle, we are quite confident that our solutions for boards 5, 6 and 7 are either the best or close to the best solution. Because we have used breadth-first on the first four boards, we are almost certain that our solutions for these boards are optimal.
+
+## Structure
 The following list shows the structure of this repository:
 * /code: Contains all the code for this project
     - /code/algorithms: Contains files with a class for each algorithm
