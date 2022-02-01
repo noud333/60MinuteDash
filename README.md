@@ -2,7 +2,18 @@
  
 ## Rush hour
 Rush hour is a board game in which the goal is to move the red car towards the right side of the board. A car can only move forwards and backwards in the direction it is facing. A car cannot move through tiles on which another car is situated.
- 
+
+There are a total of seven different boards with increasing difficulty:
+* Boards 1, 2 and 3 are 6x6 boards.
+* Boards 4, 5 and 6 are 9x9 boards.
+* Board 7 is a 12x12 board.
+
+Board 1 for example looks like this:
+
+<img src="doc/board1.png" alt="Board1" width="400"/>
+
+For a visual representation of every board, check out the images in the doc folder.
+
 ## Getting started
 ### Requirements
 All of  the code in this repository was written with Python 3.8.10. All the required packages to run this code can be installed with the following command:
