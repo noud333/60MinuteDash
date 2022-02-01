@@ -4,7 +4,7 @@ from code.algorithms.breadth_first import Breadth_search
 from code.algorithms.hillclimber import Hillclimber
 
 from code.visualisation.app import visualize_csv
-from code.visualisation.graph import to_csv, histogram
+from code.visualisation.graph import to_csv
 from code.helpers import save 
 import time
 import argparse
@@ -29,7 +29,7 @@ def main(args):
                 # _______RANDOMIZE ALGORITHM__________
                 start_time = time.time()
                 random_solve = Simulate_random(board)
-                solution, solved_board = random_solve.simulate_n(10)
+                solution, solved_board = random_solve.simulate_n(args.repeat)
                 # print specs of solution
                 print(f"---Solved Random in {len(solution[0])} steps---")
                 if args.timed:
@@ -51,7 +51,7 @@ def main(args):
                 # _______HILLCLIMBER ALGORITHM___
                 start_time = time.time()
                 hillclimber = Hillclimber(board)
-                solution, solution_lengths = hillclimber.simulate(100)
+                solution, solution_lengths = hillclimber.simulate(args.repeat)
                 # print specs of solution
                 print(f"---Solved hillclimber Random in {len(solution[0])} steps---")
                 if args.timed:
@@ -79,6 +79,7 @@ if __name__ == "__main__":
         "-a", "--algorithm", default="random", metavar="algorithm",
         choices=("random", "hillclimber", "breadth-first"),
         help="Solve a board using the \"random\", \"breadth-first\" or \"hillclimber\" algorithm")
+    parser.add_argument("-r", "--repeat", type=int, default=1, metavar="times", help="Repeat the random or hillclimber algorithm \"repeat\" times")
     parser.add_argument("-o", "--output", type=str, help="Save output solution as a .csv", metavar="outputname")
     parser.add_argument("-t", "--timed", action="store_true", help="Time the algorith")
     parser.add_argument("-v", "--visualize", action="store_true", help="Visualize the outputted solution")

@@ -16,6 +16,12 @@ def visualize_csv(output, original_board):
 
     with open(f"data/output/{output}") as csv_file:
         csv_reader = csv.DictReader(csv_file)
+
+        # first the initial state
+        state = {}
+        for car in board.cars.values():
+            state[car.name] = {"row" : car.row, "col" : car.col, "length" : car.length, "is_horizontal" : car.is_horizontal}
+        autos.append(state)
         
         for step in csv_reader:
             state = {}
