@@ -27,10 +27,10 @@ The program can be run by running main.py and makes use of multiple command line
 
 * -a; specify the algorithm of choice (random, breadth-first or hillclimber)
 * -r; repeat the random or hillclimber algorithm a specified number of times
-* -o; specify the output filename, if not specified no output will be generated
+* -o; specify the output filename, if not specified no output files will be generated
 * -t; time the algorithm 
 * -v; visualize the newly generated solution using pygame, must be used in combination with -o
-* -s; show a already generated solution, requires a solution file to be specified, if run with inititalstate.csv, it will show the initial board
+* -s; show an already generated solution, requires a solution file to be specified, if run with inititalstate.csv, it will show the initial board
 
 ### Examples
 To generate an optimal solution for puzzle 1 with the breadth first algorithm, which is visualized in pygame and timed, the following line can be run.
