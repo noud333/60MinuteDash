@@ -65,9 +65,11 @@ The following list shows the structure of this repository:
     - /code/classes: Contains the files with the board and car class
     - /code/visualisation: Contains classes and functions used for visualization purposes
 * /data: Contains the scoreboards and outputted solutions
-    - /data/best_solution: Contains the best found solution for each game board
     - /data/gameboards: Contains the files for the game boards that can be run
-    - /data/output: All the outputted solutions will be stored here 
+    - /data/output: All the outputted solutions will be stored here
+* /results: Contains histograms from the experiment
+    - /results/best_solutions: Contains the best found solution for each game board
+* /doc: Contains a picture of every board
 
 ## Authors
 * Lars Disberg
