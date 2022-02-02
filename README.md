@@ -26,6 +26,7 @@ The program can be run by running main.py and makes use of multiple command line
 > -b Rushhour6x6_1.csv 6
 
 * -a; specify the algorithm of choice (random, breadth-first or hillclimber)
+* -r; repeat the random or hillclimber algorithm a specified number of times
 * -o; specify the output filename, if not specified no output will be generated
 * -t; time the algorithm 
 * -v; visualize the newly generated solution using pygame, must be used in combination with -o
