@@ -68,7 +68,7 @@ The following list shows the structure of this repository:
     - /data/gameboards: Contains the files for the game boards that can be run
     - /data/output: All the outputted solutions will be stored here
 * /results: Contains histograms from the experiment
-    - /results/best_solutions: Contains the best found solution for each game board
+    - /results/best_solutions: Contains the best found solution for each game board, also found in data/output
 * /doc: Contains a picture of every board
 
 ## Authors
