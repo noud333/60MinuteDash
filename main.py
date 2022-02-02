@@ -5,7 +5,7 @@ from code.algorithms.hillclimber import Hillclimber
 
 from code.visualisation.app import visualize_csv
 from code.visualisation.graph import to_csv
-from code.helpers import save 
+from code.helpers import save
 import time
 import argparse
 
@@ -21,7 +21,7 @@ def main(args):
     # show the requested output
     if args.show is not None:
         visualize_csv(args.show, board)
-    
+
     else:
         # run the given algorithm
         if args.algorithm is not None:
@@ -56,7 +56,7 @@ def main(args):
                 print(f"---Solved hillclimber Random in {len(solution[0])} steps---")
                 if args.timed:
                     print(f"Total time = {time.time() - start_time}")
-                
+
                 if args.output:
                     to_csv(solution_lengths, args.board[0])
 
@@ -70,7 +70,6 @@ def main(args):
                 visualize_csv(output_name, board)
 
 
-
 if __name__ == "__main__":
     # setup the command line input
     parser = argparse.ArgumentParser(description="Solve rush-hour")
@@ -79,7 +78,8 @@ if __name__ == "__main__":
         "-a", "--algorithm", default="random", metavar="algorithm",
         choices=("random", "hillclimber", "breadth-first"),
         help="Solve a board using the \"random\", \"breadth-first\" or \"hillclimber\" algorithm")
-    parser.add_argument("-r", "--repeat", type=int, default=1, metavar="times", help="Repeat the random or hillclimber algorithm \"repeat\" times")
+    parser.add_argument("-r", "--repeat", type=int, default=1, metavar="times",
+                        help="Repeat the random or hillclimber algorithm \"repeat\" times")
     parser.add_argument("-o", "--output", type=str, help="Save output solution as a .csv", metavar="outputname")
     parser.add_argument("-t", "--timed", action="store_true", help="Time the algorith")
     parser.add_argument("-v", "--visualize", action="store_true", help="Visualize the outputted solution")

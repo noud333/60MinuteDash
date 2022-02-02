@@ -1,9 +1,8 @@
 """
-This algorithms solves the rush hour game via random moves.
+This algorithm solves the rush hour game via random moves.
 """
 import random
 import copy
-
 
 
 class Random_solve():
@@ -13,7 +12,7 @@ class Random_solve():
         self.original_board = board
         self.board = copy.deepcopy(board)
         # save the solution in a list of two lists
-        self.solution = [[],[]]
+        self.solution = [[], []]
 
     def run(self):
         # try random moves until the red car is in the proper position
@@ -21,7 +20,7 @@ class Random_solve():
 
             # select a random_car to move
             random_car = random.choice(list(self.board.cars.keys()))
-            random_direction = random.choice([-1,1])
+            random_direction = random.choice([-1, 1])
 
             # only make the move if the move is valid
             if self.board.check_move(self.board.cars[random_car], random_direction):
@@ -31,22 +30,30 @@ class Random_solve():
 
         return self.solution, self.board
 
+
 class Simulate_random(Random_solve):
+    """
+    simulate random solve n number of times
+    returns the best solution
+    """
 
     def simulate_n(self, repeats):
         smallest_solution = 10000000
         best_board = self.board
 
+        # generate a random solution repeats times
         for x in range(0, repeats):
             self.board = copy.deepcopy(self.original_board)
-            self.solution = [[],[]]
+            self.solution = [[], []]
             new_solution, new_board = self.run()
-            
+
+            # store solution if it is the smallest solution found
             if len(new_solution[0]) < smallest_solution:
                 best_board = new_board
                 best_solution = new_solution
                 smallest_solution = len(new_solution[0])
-        
-            print("Solution #", x, " Length: ", len(new_solution[0]))
+
+            # display the found solution
+            print("Solution #", x + 1, " Length: ", len(new_solution[0]))
 
         return best_solution, best_board
